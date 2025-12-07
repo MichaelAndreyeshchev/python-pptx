@@ -469,6 +469,14 @@ class CT_TextParagraphProperties(BaseOxmlElement):
     _remove_lnSpc: Callable[[], None]
     _remove_spcAft: Callable[[], None]
     _remove_spcBef: Callable[[], None]
+    _remove_eg_buType: Callable[[], None]
+    get_or_change_to_buNone: Callable[[], BaseOxmlElement]
+    get_or_change_to_buAutoNum: Callable[[], CT_TextAutonumberBullet]
+    get_or_change_to_buChar: Callable[[], CT_TextCharBullet]
+
+    buNone: BaseOxmlElement | None
+    buAutoNum: CT_TextAutonumberBullet | None
+    buChar: CT_TextCharBullet | None
 
     _tag_seq = (
         "a:lnSpc",
@@ -498,6 +506,10 @@ class CT_TextParagraphProperties(BaseOxmlElement):
     spcAft: CT_TextSpacing | None = ZeroOrOne(  # pyright: ignore[reportAssignmentType]
         "a:spcAft", successors=_tag_seq[3:]
     )
+    eg_buType = ZeroOrOneChoice(
+        (Choice("a:buNone"), Choice("a:buAutoNum"), Choice("a:buChar")),
+        successors=_tag_seq[13:],
+    )
     defRPr: CT_TextCharacterProperties | None = ZeroOrOne(  # pyright: ignore[reportAssignmentType]
         "a:defRPr", successors=_tag_seq[16:]
     )
@@ -507,6 +519,12 @@ class CT_TextParagraphProperties(BaseOxmlElement):
     algn: PP_PARAGRAPH_ALIGNMENT | None = OptionalAttribute(
         "algn", PP_PARAGRAPH_ALIGNMENT
     )  # pyright: ignore[reportAssignmentType]
+    marL: int | None = OptionalAttribute(  # pyright: ignore[reportAssignmentType]
+        "marL", ST_Coordinate32
+    )
+    indent: int | None = OptionalAttribute(  # pyright: ignore[reportAssignmentType]
+        "indent", ST_Coordinate32
+    )
     del _tag_seq
 
     @property
@@ -616,3 +634,18 @@ class CT_TextSpacingPoint(BaseOxmlElement):
     val: Length = RequiredAttribute(  # pyright: ignore[reportAssignmentType]
         "val", ST_TextSpacingPoint
     )
+
+
+class CT_TextAutonumberBullet(BaseOxmlElement):
+    """`a:buAutoNum` element for auto-numbered bullet lists."""
+
+    type: str = RequiredAttribute("type", ST_TextTypeface)  # pyright: ignore[reportAssignmentType]
+    startAt: int | None = OptionalAttribute(  # pyright: ignore[reportAssignmentType]
+        "startAt", ST_TextFontSize, default=1
+    )
+
+
+class CT_TextCharBullet(BaseOxmlElement):
+    """`a:buChar` element for character bullet lists."""
+
+    char: str = RequiredAttribute("char", ST_TextTypeface)  # pyright: ignore[reportAssignmentType]

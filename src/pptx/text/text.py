@@ -528,6 +528,52 @@ class _Paragraph(Subshape):
         self._pPr.lvl = level
 
     @property
+    def bullet_style(self) -> str | None:
+        """Bullet style of this paragraph.
+
+        Read/write. Valid values are None (or empty string) for no bullet, "bullet" for a
+        character bullet, and "number" for an auto-numbered list. Setting to None or empty
+        string removes any bullet formatting. The default bullet character is "bullet" (U+2022)
+        and the default numbering scheme is "arabicPeriod" (1., 2., 3., etc.).
+        """
+        pPr = self._p.pPr
+        if pPr is None:
+            return None
+        if pPr.buChar is not None:
+            return "bullet"
+        if pPr.buAutoNum is not None:
+            return "number"
+        if pPr.buNone is not None:
+            return None
+        return None
+
+    @bullet_style.setter
+    def bullet_style(self, value: str | None):
+        pPr = self._pPr
+        if value is None or value == "":
+            pPr._remove_eg_buType()
+            # Remove bullet indentation
+            pPr.marL = None
+            pPr.indent = None
+        elif value == "bullet":
+            buChar = pPr.get_or_change_to_buChar()
+            buChar.char = "\u2022"
+            # Set proper hanging indent for bullet: marL pushes text right,
+            # negative indent pulls bullet left of text
+            pPr.marL = 457200  # 0.5 inch in EMUs
+            pPr.indent = -457200  # negative to create hanging indent
+        elif value == "number":
+            buAutoNum = pPr.get_or_change_to_buAutoNum()
+            buAutoNum.type = "arabicPeriod"
+            # Set proper hanging indent for numbered list
+            pPr.marL = 457200  # 0.5 inch in EMUs
+            pPr.indent = -457200  # negative to create hanging indent
+        else:
+            raise ValueError(
+                f"bullet_style must be None, '', 'bullet', or 'number', got {value!r}"
+            )
+
+    @property
     def line_spacing(self) -> int | float | Length | None:
         """The space between baselines in successive lines of this paragraph.
 
