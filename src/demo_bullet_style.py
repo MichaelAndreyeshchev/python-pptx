@@ -37,7 +37,7 @@ tf = txBox.text_frame
 
 # First paragraph - no bullet (default)
 p1 = tf.paragraphs[0]
-p1.text = "This is a paragraph without any bullet style (default) This is a paragraph without any bullet style (default)This is a paragraph without any bullet style (default)This is a paragraph without any bullet style (default)This is a paragraph without any bullet style (default)This is a paragraph without any bullet style (default)This is a paragraph without any bullet style (default)This is a paragraph without any bullet style (default)This is a paragraph without any bullet style (default)This is a paragraph without any bullet style (default)"
+p1.text = "This is a paragraph without any bullet style (default) This is a paragraph without any bullet style (default)"
 p1.font.size = Pt(14)
 print(f"Paragraph 1 - No bullet: bullet_style = {p1.bullet_style}")
 
@@ -77,14 +77,12 @@ p5.space_before = Pt(6)  # Add spacing before numbered items
 p5.font.size = Pt(14)
 print(f"Paragraph 5 - Number: bullet_style = {p5.bullet_style}")
 
-# Sixth paragraph - indented bullet
+# Sixth  paragraph - no bullet (default)
 p6 = tf.add_paragraph()
-p6.text = "Indented sub-item"
-p6.level = 1
-p6.bullet_style = "bullet"
-p6.space_before = Pt(6)  # Add spacing before bullet items
-p6.font.size = Pt(12)
-print(f"Paragraph 6 - Indented bullet: bullet_style = {p6.bullet_style}, level = {p6.level}")
+p6.text = "This is a paragraph without any bullet style (default) This is a paragraph without any bullet style (default)"
+p6.font.size = Pt(14)
+print(f"Paragraph 6 - No bullet: bullet_style = {p6.bullet_style}")
+
 
 # Save the presentation
 output_path = "bullet_style_demo.pptx"
