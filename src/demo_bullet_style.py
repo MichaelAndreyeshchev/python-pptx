@@ -59,6 +59,15 @@ p3.space_before = Pt(6)  # Add spacing before bullet items
 p3.font.size = Pt(14)
 print(f"Paragraph 3 - Bullet: bullet_style = {p3.bullet_style}")
 
+# Third paragraph - another bullet
+p3i = tf.add_paragraph()
+p3i.text = "INDENTED cost breakdown by department This is a paragraph without any bullet style (default) This is a paragraph without any bullet style (default) This is a paragraph without any bullet style (default) This is a paragraph without any bullet style (default) This is a paragraph without any bullet style (default) This is a paragraph without any bullet style (default) This is a paragraph without any bullet style (default) This is a paragraph without any bullet style (default) This is a paragraph without any bullet style (default) This is a paragraph without any bullet style (default)"
+p3i.level = 2
+p3i.bullet_style = "bullet"
+p3i.space_before = Pt(6)  # Add spacing before bullet items
+p3i.font.size = Pt(14)
+print(f"Paragraph 3 Indented - Bullet: bullet_style = {p3i.bullet_style}")
+
 # Fourth paragraph - numbered style
 p4 = tf.add_paragraph()
 p4.text = "First action item This is a paragraph without any bullet style (default) This is a paragraph without any bullet style (default) This is a paragraph without any bullet style (default) This is a paragraph without any bullet style (default) This is a paragraph without any bullet style (default) This is a paragraph without any bullet style (default) This is a paragraph without any bullet style (default) This is a paragraph without any bullet style (default) This is a paragraph without any bullet style (default) This is a paragraph without any bullet style (default)"
@@ -77,11 +86,38 @@ p5.space_before = Pt(6)  # Add spacing before numbered items
 p5.font.size = Pt(14)
 print(f"Paragraph 5 - Number: bullet_style = {p5.bullet_style}")
 
-# Sixth  paragraph - no bullet (default)
+# Sixth paragraph - Level 1 nested bullet (demonstrates level-based indentation)
 p6 = tf.add_paragraph()
-p6.text = "This is a paragraph without any bullet style (default) This is a paragraph without any bullet style (default)"
-p6.font.size = Pt(14)
-print(f"Paragraph 6 - No bullet: bullet_style = {p6.bullet_style}")
+p6.text = "Level 1 sub-item - notice increased indentation"
+p6.level = 1
+p6.bullet_style = "bullet"
+p6.space_before = Pt(4)
+p6.font.size = Pt(12)
+print(f"Paragraph 6 - Level 1 bullet: bullet_style = {p6.bullet_style}, level = {p6.level}")
+
+# Seventh paragraph - Level 2 nested bullet
+p7 = tf.add_paragraph()
+p7.text = "Level 2 sub-item - even more indentation"
+p7.level = 2
+p7.bullet_style = "bullet"
+p7.space_before = Pt(4)
+p7.font.size = Pt(11)
+print(f"Paragraph 7 - Level 2 bullet: bullet_style = {p7.bullet_style}, level = {p7.level}")
+
+# Eighth paragraph - Back to Level 0
+p8 = tf.add_paragraph()
+p8.text = "Back to level 0 bullet"
+p8.level = 0
+p8.bullet_style = "bullet"
+p8.space_before = Pt(6)
+p8.font.size = Pt(14)
+print(f"Paragraph 8 - Level 0 bullet: bullet_style = {p8.bullet_style}, level = {p8.level}")
+
+# Ninth paragraph - no bullet (default)
+p9 = tf.add_paragraph()
+p9.text = "This is a paragraph without any bullet style (default)"
+p9.font.size = Pt(14)
+print(f"Paragraph 9 - No bullet: bullet_style = {p9.bullet_style}")
 
 
 # Save the presentation
