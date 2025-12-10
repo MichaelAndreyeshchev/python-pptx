@@ -28,163 +28,79 @@ def main():
             continue
             
         tf = shape.text_frame
+
+        print(shape.name)
         
-        # === SHAPE 7: "Textplatzhalter 2" - Add bullet list ===
-        if shape.name == "Textplatzhalter 2" and shape.top < 3000000:  # First one
+        if "Textfeld 183" in shape.name: 
             tf.clear()  # Clear existing content
             
-            # Title paragraph (no bullet)
             p1 = tf.paragraphs[0]
             p1.text = "Key Features"
-            p1.font.size = Pt(14)
+            p1.font.size = Pt(7)
             p1.font.bold = True
             
             # Bullet points
             p2 = tf.add_paragraph()
-            p2.text = "Cloud-native architecture"
-            p2.bullet_style = "bullet"
-            p2.font.size = Pt(11)
-            p2.space_before = Pt(6)
+            p2.text = "Cloud-native architecture " + shape.name
+            p2.bullet_style = "number"
+            p2.font.size = Pt(7)
+            p2.space_before = Pt(3)
             
             p3 = tf.add_paragraph()
             p3.text = "Real-time analytics"
-            p3.bullet_style = "bullet"
-            p3.font.size = Pt(11)
-            p3.space_before = Pt(4)
+            p3.level = 1
+            p3.bullet_style = "number"
+            p3.font.size = Pt(7)
+            p3.space_before = Pt(3)
             
             p4 = tf.add_paragraph()
             p4.text = "Enterprise security"
-            p4.bullet_style = "bullet"
-            p4.font.size = Pt(11)
-            p4.space_before = Pt(4)
-            
-            modifications.append(f"Shape '{shape.name}': Added bullet list")
-            
-        # === SHAPE 8: Second "Textplatzhalter 2" - Add numbered list ===
-        elif shape.name == "Textplatzhalter 2" and 3500000 < shape.top < 4500000:
-            tf.clear()
-            
-            p1 = tf.paragraphs[0]
-            p1.text = "Implementation Steps"
-            p1.font.size = Pt(14)
-            p1.font.bold = True
-            
-            p2 = tf.add_paragraph()
-            p2.text = "Assessment & planning"
-            p2.bullet_style = "number"
-            p2.font.size = Pt(11)
-            p2.space_before = Pt(6)
-            
-            p3 = tf.add_paragraph()
-            p3.text = "System integration"
-            p3.bullet_style = "number"
-            p3.font.size = Pt(11)
-            p3.space_before = Pt(4)
-            
-            p4 = tf.add_paragraph()
-            p4.text = "Testing & deployment"
+            p4.level = 2
             p4.bullet_style = "number"
-            p4.font.size = Pt(11)
-            p4.space_before = Pt(4)
-            
-            modifications.append(f"Shape '{shape.name}': Added numbered list")
-            
-        # === SHAPE 9: Third "Textplatzhalter 2" - Mixed content ===
-        elif shape.name == "Textplatzhalter 2" and shape.top > 5000000:
-            tf.clear()
-            
-            p1 = tf.paragraphs[0]
-            p1.text = "Summary"
-            p1.font.size = Pt(14)
-            p1.font.bold = True
-            
-            p2 = tf.add_paragraph()
-            p2.text = "This solution provides comprehensive coverage for all enterprise needs."
-            p2.font.size = Pt(10)
-            p2.space_before = Pt(6)
-            
-            modifications.append(f"Shape '{shape.name}': Added regular text")
-            
-        # === "Textfeld 78" with "Example" - Add bullet list ===
-        elif shape.name == "Textfeld 78" and tf.paragraphs[0].text == "Example" and shape.top > 5000000:
-            tf.clear()
+            p4.font.size = Pt(7)
+            p4.space_before = Pt(3)
+
+            p5 = tf.add_paragraph()
+            p5.text = "Speed"
+            p5.level = 2
+            p5.bullet_style = "number"
+            p5.font.size = Pt(7)
+            p5.space_before = Pt(3)  
+
+        if "Textfeld 170" in shape.name: 
+            tf.clear()  # Clear existing content
             
             p1 = tf.paragraphs[0]
-            p1.text = "Benefits"
-            p1.font.size = Pt(12)
+            p1.text = "Key Features"
+            p1.font.size = Pt(7)
             p1.font.bold = True
             
+            # Bullet points
             p2 = tf.add_paragraph()
-            p2.text = "Cost reduction"
+            p2.text = "Cloud-native architecture " + shape.name
             p2.bullet_style = "bullet"
-            p2.font.size = Pt(10)
-            p2.space_before = Pt(4)
-            
-            p3 = tf.add_paragraph()
-            p3.text = "Improved efficiency"
-            p3.bullet_style = "bullet"
-            p3.font.size = Pt(10)
-            p3.space_before = Pt(4)
-            
-            modifications.append(f"Shape '{shape.name}': Added bullet benefits")
-            
-        # === "Textfeld 78" with "Exposure Management" - Add numbered list ===
-        elif shape.name == "Textfeld 78" and "Exposure" in tf.paragraphs[0].text:
-            tf.clear()
-            
-            p1 = tf.paragraphs[0]
-            p1.text = "Risk Categories"
-            p1.font.size = Pt(12)
-            p1.font.bold = True
-            
+            p2.font.size = Pt(7)
+            p2.space_before = Pt(3)
+
             p2 = tf.add_paragraph()
-            p2.text = "Market risk"
-            p2.bullet_style = "number"
-            p2.font.size = Pt(10)
-            p2.space_before = Pt(4)
+            p2.text = "test"
+            p2.bullet_style = "bullet"
+            p2.level = 1
+            p2.font.size = Pt(7)
+            p2.space_before = Pt(3)
             
             p3 = tf.add_paragraph()
-            p3.text = "Credit risk"
+            p3.text = "Real-time analytics"
             p3.bullet_style = "number"
-            p3.font.size = Pt(10)
-            p3.space_before = Pt(4)
+            p3.font.size = Pt(7)
+            p3.space_before = Pt(5)
             
             p4 = tf.add_paragraph()
-            p4.text = "Operational risk"
-            p4.bullet_style = "number"
-            p4.font.size = Pt(10)
-            p4.space_before = Pt(4)
-            
-            modifications.append(f"Shape '{shape.name}': Added numbered risk list")
-            
-        # === Update "Example" text in Textfeld 74 (right side) ===
-        elif shape.name == "Textfeld 74" and tf.paragraphs[0].text == "Example":
-            tf.clear()
-            
-            p1 = tf.paragraphs[0]
-            p1.text = "Product Overview"
-            p1.font.size = Pt(12)
-            p1.font.bold = True
-            
-            p2 = tf.add_paragraph()
-            p2.text = "Our solution addresses key market needs with innovative technology."
-            p2.font.size = Pt(10)
-            p2.space_before = Pt(6)
-            
-            p3 = tf.add_paragraph()
-            p3.text = "Scalable infrastructure"
-            p3.bullet_style = "bullet"
-            p3.font.size = Pt(10)
-            p3.space_before = Pt(4)
-            
-            p4 = tf.add_paragraph()
-            p4.text = "24/7 support"
-            p4.bullet_style = "bullet"
-            p4.font.size = Pt(10)
-            p4.space_before = Pt(4)
-            
-            modifications.append(f"Shape '{shape.name}': Added mixed content")
-    
+            p4.text = "Enterprise security"
+            p4.bullet_style = None
+            p4.font.size = Pt(7)
+            p4.space_before = Pt(3) 
+
     # Save the modified presentation
     output_path = "image_exercise_with_bullets.pptx"
     prs.save(output_path)

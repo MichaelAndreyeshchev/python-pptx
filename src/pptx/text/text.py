@@ -534,13 +534,13 @@ class _Paragraph(Subshape):
     def _calculate_marL(self, level: int) -> int:
         """Calculate left margin based on indentation level.
         
-        Each level adds 457200 EMUs (0.5 inch) of indentation.
-        Level 0: 457200 EMUs (0.5 inch)
-        Level 1: 914400 EMUs (1.0 inch)
-        Level 2: 1371600 EMUs (1.5 inch)
+        Each level adds 228600 EMUs (0.25 inch) of indentation.
+        Level 0: 228600 EMUs (0.25 inch)
+        Level 1: 457200 EMUs (0.50 inch)
+        Level 2: 685800 EMUs (0.75 inch)
         etc.
         """
-        base_indent = 457200  # 0.5 inch in EMUs
+        base_indent = 228600  # 0.25 inch in EMUs
         return base_indent * (level + 1)
 
     @property
@@ -578,14 +578,14 @@ class _Paragraph(Subshape):
             # negative indent pulls bullet left of text
             # Indentation scales with paragraph level
             pPr.marL = self._calculate_marL(self.level)
-            pPr.indent = -457200  # negative to create hanging indent
+            pPr.indent = -228600  # negative to create hanging indent
         elif value == "number":
             buAutoNum = pPr.get_or_change_to_buAutoNum()
             buAutoNum.type = "arabicPeriod"
             # Set proper hanging indent for numbered list
             # Indentation scales with paragraph level
             pPr.marL = self._calculate_marL(self.level)
-            pPr.indent = -457200  # negative to create hanging indent
+            pPr.indent = -228600  # negative to create hanging indent
         else:
             raise ValueError(
                 f"bullet_style must be None, '', 'bullet', or 'number', got {value!r}"
