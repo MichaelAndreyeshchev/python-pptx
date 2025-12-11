@@ -9,13 +9,32 @@ This script opens image_exercise.pptx and adds:
 to various text boxes in the presentation.
 """
 
+import os
+import sys
+sys.path.insert(0, 'src')
+
 from pptx import Presentation
 from pptx.util import Pt
 
+# Output directory for generated files
+OUTPUT_DIR = 'src/demo_test_results'
+
+
+def ensure_output_dir():
+    """Create output directory if it doesn't exist."""
+    if not os.path.exists(OUTPUT_DIR):
+        os.makedirs(OUTPUT_DIR)
+        print(f"Created output directory: {OUTPUT_DIR}")
+    return OUTPUT_DIR
+
+
 def main():
+    # Ensure output directory exists
+    ensure_output_dir()
+    
     # Open the existing presentation
     print("Opening image_exercise.pptx...")
-    prs = Presentation('image_exercise.pptx')
+    prs = Presentation('src/image_exercise.pptx')
     
     slide = prs.slides[0]
     
@@ -102,7 +121,7 @@ def main():
             p4.space_before = Pt(3) 
 
     # Save the modified presentation
-    output_path = "image_exercise_with_bullets.pptx"
+    output_path = os.path.join(OUTPUT_DIR, "image_exercise_with_bullets.pptx")
     prs.save(output_path)
     
     # Print summary
@@ -122,10 +141,11 @@ def test_bullet_style_reading():
     """Test that bullet_style correctly reads existing bullets from the modified file."""
     print("\n=== Testing bullet_style reading ===")
     
+    output_path = os.path.join(OUTPUT_DIR, "image_exercise_with_bullets.pptx")
     try:
-        prs = Presentation('image_exercise_with_bullets.pptx')
+        prs = Presentation(output_path)
     except FileNotFoundError:
-        print("Run main() first to create the modified file")
+        print(f"Run main() first to create the modified file at {output_path}")
         return
     
     slide = prs.slides[0]

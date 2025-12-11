@@ -5,19 +5,33 @@ This script demonstrates how to use the new bullet_style property
 on paragraphs to create bulleted and numbered lists.
 
 Usage:
-    1. Apply the patch to python-pptx:
-       cd python-pptx
-       git apply python-pptx-bullet-style.patch
-       pip install -e .
+    cd python-pptx
+    python src/demo_bullet_style.py
     
-    2. Run this script:
-       python demo_bullet_style.py
-    
-    3. Open the generated 'bullet_style_demo.pptx' in PowerPoint
+    Open the generated file in PowerPoint to verify bullet styles.
 """
+
+import os
+import sys
+sys.path.insert(0, 'src')
 
 from pptx import Presentation
 from pptx.util import Inches, Pt
+
+# Output directory for generated files
+OUTPUT_DIR = 'src/demo_test_results'
+
+
+def ensure_output_dir():
+    """Create output directory if it doesn't exist."""
+    if not os.path.exists(OUTPUT_DIR):
+        os.makedirs(OUTPUT_DIR)
+        print(f"Created output directory: {OUTPUT_DIR}")
+    return OUTPUT_DIR
+
+
+# Ensure output directory exists
+ensure_output_dir()
 
 # Create a new presentation
 prs = Presentation()
@@ -106,7 +120,7 @@ print(f"Paragraph 7 - Level 2 bullet: bullet_style = {p7.bullet_style}, level = 
 
 # Eighth paragraph - Back to Level 0
 p8 = tf.add_paragraph()
-p8.text = "Back to level 0 bullet"
+p8.text = ""
 p8.level = 0
 p8.bullet_style = "bullet"
 p8.space_before = Pt(3)
@@ -121,7 +135,7 @@ print(f"Paragraph 9 - No bullet: bullet_style = {p9.bullet_style}")
 
 
 # Save the presentation
-output_path = "bullet_style_demo.pptx"
+output_path = os.path.join(OUTPUT_DIR, "bullet_style_demo.pptx")
 prs.save(output_path)
 print(f"\nPresentation saved to: {output_path}")
 print("Open the file in PowerPoint to verify the bullet styles are correct.")

@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING, Iterator, cast
 from pptx.dml.fill import FillFormat
 from pptx.enum.dml import MSO_FILL
 from pptx.enum.lang import MSO_LANGUAGE_ID
-from pptx.enum.text import MSO_AUTO_SIZE, MSO_UNDERLINE, MSO_VERTICAL_ANCHOR
+from pptx.enum.text import MSO_AUTO_SIZE, MSO_UNDERLINE, MSO_VERTICAL_ANCHOR, PP_PARAGRAPH_ALIGNMENT
 from pptx.opc.constants import RELATIONSHIP_TYPE as RT
 from pptx.oxml.simpletypes import ST_TextWrappingType
 from pptx.shapes import Subshape
@@ -534,13 +534,13 @@ class _Paragraph(Subshape):
     def _calculate_marL(self, level: int) -> int:
         """Calculate left margin based on indentation level.
         
-        Each level adds 228600 EMUs (0.25 inch) of indentation.
-        Level 0: 228600 EMUs (0.25 inch)
-        Level 1: 457200 EMUs (0.50 inch)
-        Level 2: 685800 EMUs (0.75 inch)
+        Each level adds 114300 EMUs (0.125 inch) of indentation.
+        Level 0: 114300 EMUs (0.125 inch)
+        Level 1: 228600 EMUs (0.25 inch)
+        Level 2: 342900 EMUs (0.375 inch)
         etc.
         """
-        base_indent = 228600  # 0.25 inch in EMUs
+        base_indent = 114300  # 0.125 inch in EMUs
         return base_indent * (level + 1)
 
     @property
@@ -578,14 +578,14 @@ class _Paragraph(Subshape):
             # negative indent pulls bullet left of text
             # Indentation scales with paragraph level
             pPr.marL = self._calculate_marL(self.level)
-            pPr.indent = -228600  # negative to create hanging indent
+            pPr.indent = -114300  # negative to create hanging indent
         elif value == "number":
             buAutoNum = pPr.get_or_change_to_buAutoNum()
             buAutoNum.type = "arabicPeriod"
             # Set proper hanging indent for numbered list
             # Indentation scales with paragraph level
             pPr.marL = self._calculate_marL(self.level)
-            pPr.indent = -228600  # negative to create hanging indent
+            pPr.indent = -114300  # negative to create hanging indent
         else:
             raise ValueError(
                 f"bullet_style must be None, '', 'bullet', or 'number', got {value!r}"
