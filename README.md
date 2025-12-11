@@ -130,6 +130,37 @@ Simple demonstration of all bullet_style capabilities:
 python src/demo_bullet_style.py
 ```
 
+### `tests/text/test_bullet_style.py` - Unit Tests
+
+Pytest unit tests for the `bullet_style` property:
+
+```bash
+# Windows PowerShell
+$env:PYTHONPATH="src"; pytest tests/text/test_bullet_style.py -v
+
+# Linux/Mac
+PYTHONPATH=src pytest tests/text/test_bullet_style.py -v
+
+# Run specific test class
+$env:PYTHONPATH="src"; pytest tests/text/test_bullet_style.py::DescribeParagraphBulletStyle -v
+
+# Run integration tests only
+$env:PYTHONPATH="src"; pytest tests/text/test_bullet_style.py::DescribeIntegrationBulletStyle -v
+```
+
+**Unit Tests (`DescribeParagraphBulletStyle`):**
+- Returns `None` when no bullet element present
+- Returns `None` when `pPr` not present
+- Returns `"bullet"` when `buChar` element present
+- Returns `"number"` when `buAutoNum` element present
+- Can set bullet_style to `"bullet"` or `"number"`
+- Can remove bullet by setting to `None` or `""`
+- Can change between bullet types
+- Raises `ValueError` for invalid values
+
+**Integration Tests (`DescribeIntegrationBulletStyle`):**
+- Works with real `Presentation` objects
+
 ## Output Files
 
 All test scripts output to `src/demo_test_results/`:
